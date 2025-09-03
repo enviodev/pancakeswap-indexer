@@ -99,19 +99,19 @@ PancakeV3Pool.Collect.handlerWithLoader({
         factory.totalValueLockedETH = factory.totalValueLockedETH.plus(pool.totalValueLockedETH);
         factory.totalValueLockedUSD = factory.totalValueLockedETH.times(bundle.ethPriceUSD);
 
-        const collect = {
-            id: `${transaction.id}-${event.logIndex}`,
-            transaction_id: transaction.id,
-            timestamp: BigInt(timestamp),
-            pool_id: pool.id,
-            owner: event.params.owner.toLowerCase(),
-            amount0: collectedAmountToken0,
-            amount1: collectedAmountToken1,
-            amountUSD: trackedCollectedAmountUSD,
-            tickLower: event.params.tickLower,
-            tickUpper: event.params.tickUpper,
-            logIndex: BigInt(event.logIndex)
-        };
+        // const collect = {
+        //     id: `${transaction.id}-${event.logIndex}`,
+        //     transaction_id: transaction.id,
+        //     timestamp: BigInt(timestamp),
+        //     pool_id: pool.id,
+        //     owner: event.params.owner.toLowerCase(),
+        //     amount0: collectedAmountToken0,
+        //     amount1: collectedAmountToken1,
+        //     amountUSD: trackedCollectedAmountUSD,
+        //     tickLower: event.params.tickLower,
+        //     tickUpper: event.params.tickUpper,
+        //     logIndex: BigInt(event.logIndex)
+        // };
 
         intervalUpdates.updatePancakeDayData(timestamp, event.chainId, factory, context);
         intervalUpdates.updatePoolDayData(timestamp, pool, context);
@@ -125,6 +125,6 @@ PancakeV3Pool.Collect.handlerWithLoader({
         context.Token.set(token1);
         context.Pool.set(pool);
         context.Factory.set(factory);
-        context.Collect.set(collect);
+        // context.Collect.set(collect); // Removed entity creation
     },
 });

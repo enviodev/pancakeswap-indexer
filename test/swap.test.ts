@@ -1,6 +1,6 @@
 import assert from "assert";
 import { 
-    Bundle, Token, TestHelpers, BigDecimal, Factory, Pool, Swap, 
+    Bundle, Token, TestHelpers, BigDecimal, Factory, Pool, 
     PancakeDayData, PoolDayData, PoolHourData, TokenDayData, TokenHourData
 } from 'generated';
 import { convertTokenToDecimal, safeDiv } from '../src/handlers/utils';
@@ -219,21 +219,22 @@ describe('handleSwap', async () => {
             amount1.times(newToken1DerivedETH).times(newEthPrice).toString()
         );
 
-        const swap: Swap = newMockDb.entities.Swap.get(`${txHash}-${logIndex}`)!;
-        assert.deepEqual(swap.transaction_id, txHash);
-        assert.deepEqual(swap.timestamp, timestamp);
-        assert.deepEqual(swap.pool_id, poolId);
-        assert.deepEqual(swap.token0_id, token0.id);
-        assert.deepEqual(swap.token1_id, token1.id);
-        assert.deepEqual(swap.sender, SWAP_FIXTURE.sender);
-        assert.deepEqual(swap.origin, txFrom.toLowerCase());
-        assert.deepEqual(swap.recipient, SWAP_FIXTURE.recipient);
-        assert.deepEqual(swap.amount0.toString(), amount0.toString());
-        assert.deepEqual(swap.amount1.toString(), amount1.toString());
-        assert.deepEqual(swap.amountUSD.toString(), amountTotalUSDTracked.toString());
-        assert.deepEqual(swap.tick, SWAP_FIXTURE.tick);
-        assert.deepEqual(swap.sqrtPriceX96, SWAP_FIXTURE.sqrtPriceX96);
-        assert.deepEqual(swap.logIndex, logIndex);
+        // Swap entity test removed - entities no longer created
+        // const swap: Swap = newMockDb.entities.Swap.get(`${txHash}-${logIndex}`)!;
+        // assert.deepEqual(swap.transaction_id, txHash);
+        // assert.deepEqual(swap.timestamp, timestamp);
+        // assert.deepEqual(swap.pool_id, poolId);
+        // assert.deepEqual(swap.token0_id, token0.id);
+        // assert.deepEqual(swap.token1_id, token1.id);
+        // assert.deepEqual(swap.sender, SWAP_FIXTURE.sender);
+        // assert.deepEqual(swap.origin, txFrom.toLowerCase());
+        // assert.deepEqual(swap.recipient, SWAP_FIXTURE.recipient);
+        // assert.deepEqual(swap.amount0.toString(), amount0.toString());
+        // assert.deepEqual(swap.amount1.toString(), amount1.toString());
+        // assert.deepEqual(swap.amountUSD.toString(), amountTotalUSDTracked.toString());
+        // assert.deepEqual(swap.tick, SWAP_FIXTURE.tick);
+        // assert.deepEqual(swap.sqrtPriceX96, SWAP_FIXTURE.sqrtPriceX96);
+        // assert.deepEqual(swap.logIndex, logIndex);
 
         const dayId = Math.floor(timestamp / 86400);
         const hourId = Math.floor(timestamp / 3600);

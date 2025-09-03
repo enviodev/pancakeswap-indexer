@@ -1,4 +1,4 @@
-import { PancakeV3Pool, Token, Pool, Bundle, Factory, BigDecimal, Swap } from "generated";
+import { PancakeV3Pool, Token, Pool, Bundle, Factory, BigDecimal } from "generated";
 import { CHAIN_CONFIGS } from "./utils/chains";
 import { ONE_BI, ZERO_BI, ZERO_BD } from './utils/constants';
 import { convertTokenToDecimal, loadTransaction, safeDiv } from './utils/index';
@@ -188,23 +188,23 @@ PancakeV3Pool.Swap.handlerWithLoader({
             context
         );
 
-        const swap: Swap = {
-            id: `${transaction.id.toLowerCase()}-${event.logIndex}`,
-            transaction_id: transaction.id,
-            timestamp: transaction.timestamp,
-            pool_id: pool.id,
-            token0_id: pool.token0_id,
-            token1_id: pool.token1_id,
-            sender: event.params.sender,
-            origin: event.transaction.from?.toLowerCase() || '',
-            recipient: event.params.recipient,
-            amount0: amount0,
-            amount1: amount1,
-            amountUSD: amountTotalUSDTracked,
-            tick: event.params.tick,
-            sqrtPriceX96: event.params.sqrtPriceX96,
-            logIndex: BigInt(event.logIndex)
-        };
+        // const swap = {
+        //     id: `${transaction.id.toLowerCase()}-${event.logIndex}`,
+        //     transaction_id: transaction.id,
+        //     timestamp: transaction.timestamp,
+        //     pool_id: pool.id,
+        //     token0_id: pool.token0_id,
+        //     token1_id: pool.token1_id,
+        //     sender: event.params.sender,
+        //     origin: event.transaction.from?.toLowerCase() || '',
+        //     recipient: event.params.recipient,
+        //     amount0: amount0,
+        //     amount1: amount1,
+        //     amountUSD: amountTotalUSDTracked,
+        //     tick: event.params.tick,
+        //     sqrtPriceX96: event.params.sqrtPriceX96,
+        //     logIndex: BigInt(event.logIndex)
+        // };
 
         // interval data
         const pancakeswapDayData = { ...await intervalUpdates.updatePancakeDayData(timestamp, event.chainId, factory, context) };
@@ -250,7 +250,7 @@ PancakeV3Pool.Swap.handlerWithLoader({
         token1HourData.untrackedVolumeUSD = token1HourData.untrackedVolumeUSD.plus(amountTotalUSDTracked);
         token1HourData.feesUSD = token1HourData.feesUSD.plus(feesUSD);
 
-        context.Swap.set(swap);
+        // context.Swap.set(swap); // Removed entity creation
         context.TokenDayData.set(token0DayData);
         context.TokenDayData.set(token1DayData);
         context.PancakeDayData.set(pancakeswapDayData);

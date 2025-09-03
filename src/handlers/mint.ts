@@ -107,24 +107,24 @@ PancakeV3Pool.Mint.handlerWithLoader({
             context
         );
 
-        const mint = {
-            id: `${transaction.id}-${event.logIndex}`,
-            transaction_id: transaction.id,
-            timestamp: transaction.timestamp,
-            pool_id: pool.id,
-            token0_id: pool.token0_id,
-            token1_id: pool.token1_id,
-            owner: event.params.owner,
-            sender: event.params.sender,
-            origin: event.transaction.from?.toLowerCase() || '',
-            amount: event.params.amount,
-            amount0: amount0,
-            amount1: amount1,
-            amountUSD: amountUSD,
-            tickLower: event.params.tickLower,
-            tickUpper: event.params.tickUpper,
-            logIndex: BigInt(event.logIndex)
-        };
+        // const mint = {
+        //     id: `${transaction.id}-${event.logIndex}`,
+        //     transaction_id: transaction.id,
+        //     timestamp: transaction.timestamp,
+        //     pool_id: pool.id,
+        //     token0_id: pool.token0_id,
+        //     token1_id: pool.token1_id,
+        //     owner: event.params.owner,
+        //     sender: event.params.sender,
+        //     origin: event.transaction.from?.toLowerCase() || '',
+        //     amount: event.params.amount,
+        //     amount0: amount0,
+        //     amount1: amount1,
+        //     amountUSD: amountUSD,
+        //     tickLower: event.params.tickLower,
+        //     tickUpper: event.params.tickUpper,
+        //     logIndex: BigInt(event.logIndex)
+        // };
 
         // tick entities
         const lowerTickIdx = event.params.tickLower;
@@ -178,7 +178,7 @@ PancakeV3Pool.Mint.handlerWithLoader({
         context.Token.set(token1);
         context.Pool.set(pool);
         context.Factory.set(factory);
-        context.Mint.set(mint);
+        // context.Mint.set(mint); // Removed entity creation
     }
 });
 
